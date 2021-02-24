@@ -37,6 +37,28 @@ document.addEventListener("DOMContentLoaded", () => {
         // Logic
         const formInputs = document.getElementsByClassName('form__input');
         const userId = formInputs[0].value;
+        
+        // PX Code
+  //passing user and account objects:
+aptrinsic("identify",
+  {
+  //User Fields
+    "id": userId, // Required for logged in app users
+    "email": userId,
+    "firstName": "John",
+    "lastName": "Smith",
+    "signUpDate": 1522697426479, //unix time in ms
+    "plan" : "gold", //Custom attributes - please create those custom attributes in Aptrinsic via Account Settings to be tracked.
+    "price" : 95.5,
+    "userHash": "" // optional transient for HMAC identification
+  },
+  {
+  //Account Fields
+    "id": PersonalGithub, //Required
+    "name":"Tej Ozymandias Github",
+    "Program": "Platinum" // flat custom attributes
+ });
+    //PX Code
         if((userId.indexOf("gainsight.com")>-1) && (formInputs[1].value.length > 3)) {
             window.location.href = "main.html";
         } else{
