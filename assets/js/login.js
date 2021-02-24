@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 },
                 {
                 //Account Fields
-                "id": PersonalGithub, //Required
+                "id": "PersonalGithub", //Required
                 "name":"Tej Ozymandias Github",
                 "Program": "Platinum" // flat custom attributes
                 });
