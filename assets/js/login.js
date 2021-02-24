@@ -36,7 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         // Logic
         const formInputs = document.getElementsByClassName('form__input');
-        if((formInputs[0].value.indexOf("gainsight.com")>-1) && (formInputs[1].value.length > 0)) {
+        const userId = formInputs[0].value;
+        if((userId.indexOf("gainsight.com")>-1) && (formInputs[1].value.length > 3)) {
             window.location.href = "main.html";
         } else{
             alert('Invalid User Name and Password');
