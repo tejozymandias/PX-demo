@@ -71,6 +71,10 @@ input, select, textarea {
 	appearance: none;
 }
 
+h1#logging{
+	cursor: pointer;
+}
+
 /* Basic */
 
 	html {
