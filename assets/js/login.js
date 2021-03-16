@@ -28,8 +28,8 @@
     aptrinsic("identify",
     {
     //User Fields
-      "id": "unique-user-id", // Required for logged in app users
-      "email": "userEmail@address.com",
+      "id": userId, // Required for logged in app users
+      "email": userId,
       "firstName": "John",
       "lastName": "Smith",
       "signUpDate": 1522697426479, //unix time in ms
