@@ -1,68 +1,79 @@
-/*
-	Minimaxing by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/ 
+
+//Run PX Tag
+(function(n,t,a,e,co){var i="aptrinsic";n[i]=n[i]||function(){
+	(n[i].q=n[i].q||[]).push(arguments)},n[i].p=e;n[i].c=co;
+  var r=t.createElement("script");r.async=!0,r.src=a+"?a="+e;
+  var c=t.getElementsByTagName("script")[0];c.parentNode.insertBefore(r,c)
+  })(window,document,"https://web-sdk.aptrinsic.com/api/aptrinsic.js","AP-BDSBPZZISNM1-2");
+
+
 //sessionStorage.clear()
 
+
 (function (){
-    const user = sessionStorage.getItem('username');
-    if(user){
-        document.getElementById('logging').innerText = "Logout";
-        document.getElementById('nav').style.display = "block";
-        document.getElementById('logging').addEventListener("click",(e)=>{
-            e.preventDefault();
+	if(window.location.href.indexOf('login') > -1){
+		let myInterval = setInterval(checkElement, 1000);
+		function checkElement(){
+			const loginForm = document.querySelector("#login"); 
+			if(loginForm){
+				clearInterval(myInterval);
+				loginForm.addEventListener("submit", e => {   
+					e.preventDefault();
+					const formInputs = document.getElementsByClassName('form__input');
+					const userId = formInputs[0].value;
+					const password = formInputs[1].value;
+				if((userId.indexOf("apple.com")>-1) && (password.length > 3)) {
+					(function(){
+						aptrinsic("identify",
+						{
+						//User Fields
+						  "id": userId, // Required for logged in app users
+						  "email": userId,
+						  "firstName": "Rachel",
+						  "lastName": "Green"		  
+						},
+						{
+						//Account Fields
+						  "id":"Apple", //Required
+						});
+						})();
+						 
+				 console.log(userId + " sent to aptrensic");
+				
+				 sessionStorage.setItem("username", userId);          
+				 sessionStorage.setItem("password", password);
+				 window.location.href = "main.html";				
+				} else {
+						alert('Invalid User Name and Password');
+					}
+				});
+			}
+		
+		}
+}
+}
+)();
+
+
+
+(function (){
+	if(window.location.href.indexOf('main') > -1){
+		let mainInterval = setInterval(checkElementOnMainPage, 1000);		
+		function checkElementOnMainPage(){
+		const loggingValue = document.getElementById('logging');
+		if(loggingValue){
+			clearInterval(mainInterval);
+			loggingValue.addEventListener("click",(e)=>{
+				e.preventDefault();
             sessionStorage.clear()
-            document.getElementById('logging').innerText = "Login";
-            document.getElementById('nav').style.display = "none";
-        });
-    } else if(user === null) {
-        document.querySelector('#nav').style.display = "none";
-    }
+			window.aptrinsic('reset');
+			window.location.href="index.html";
+			});
+		}}
+	} else {
+		return;
+	}
+
 })();
 
-(function($) {
 
-	var $window = $(window),
-		$body = $('body');
-
-	// Breakpoints.
-		breakpoints({
-			xlarge:  [ '1281px',  '1680px' ],
-			large:   [ '981px',   '1280px' ],
-			medium:  [ '737px',   '980px'  ],
-			small:   [ null,      '736px'  ]
-		});
-
-	// Nav.
-
-		// Title Bar.
-			$(
-				'<div id="titleBar">' +
-					'<a href="#navPanel" class="toggle"></a>' +
-					'<span class="title">' + $('#logo').html() + '</span>' +
-				'</div>'
-			)
-				.appendTo($body);
-
-		// Navigation Panel.
-			$(
-				'<div id="navPanel">' +
-					'<nav>' +
-						$('#nav').navList() +
-					'</nav>' +
-				'</div>'
-			)
-				.appendTo($body)
-				.panel({
-					delay: 500,
-					hideOnClick: true,
-					hideOnSwipe: true,
-					resetScroll: true,
-					resetForms: true,
-					side: 'left',
-					target: $body,
-					visibleClass: 'navPanel-visible'
-				});
-
-})(jQuery);
