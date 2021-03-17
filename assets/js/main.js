@@ -22,19 +22,22 @@
 					const formInputs = document.getElementsByClassName('form__input');
 					const userId = formInputs[0].value;
 					const password = formInputs[1].value;
-				if((userId.indexOf("apple.com")>-1) && (password.length > 3)) {
+					const firstName = formInputs[2].value;
+					const LastName = formInputs[3].value;
+					const id = userId.split('@')[1];
+				if((userId.indexOf("apple.com")>-1) || (userId.indexOf("tesla.com"))) {
 					(function(){
 						aptrinsic("identify",
 						{
 						//User Fields
 						  "id": userId, // Required for logged in app users
 						  "email": userId,
-						  "firstName": "Rachel",
-						  "lastName": "Green"		  
+						  "firstName": firstName,
+						  "lastName": LastName		  
 						},
 						{
 						//Account Fields
-						  "id":"Apple", //Required
+						  "id":id //Required
 						});
 						})();
 						 
