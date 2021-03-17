@@ -9,8 +9,8 @@
 
 //sessionStorage.clear()
 
-
-(function (){
+document.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
 	if(window.location.href.indexOf('login') > -1){
 		let myInterval = setInterval(checkElement, 1000);
 		function checkElement(){
@@ -21,9 +21,6 @@
 					e.preventDefault();
 					const formInputs = document.getElementsByClassName('form__input');
 					const userId = formInputs[0].value;
-					const password = formInputs[1].value;
-					const firstName = formInputs[2].value;
-					const lastName = formInputs[3].value;
 					// const accountId = userId.split('@')[1].substring(0,userId.indexOf('.'));
 					// const departmentArr = [
 					// 	"Sales",
@@ -33,27 +30,24 @@
 					// 	"Marketing"
 					//   ]					  
 					//   const department = departmentArr[Math.floor(Math.random() * departmentArr.length)];
-				if((userId.indexOf("apple.com")>-1) || (userId.indexOf("tesla.com")>-1) || (userId.indexOf("gainsight.com")<-1) || (userId.indexOf("amazon.com")>-1)) {
+				if((userId.indexOf("apple.com")>-1) || (userId.indexOf("tesla.com")>-1)) {
 					(function(){
 						aptrinsic("identify",
 						{
 						//User Fields
 						  "id": userId, // Required for logged in app users
-						  "email": userId,
-						  "firstName": firstName,
-						  "lastName": lastName		  
+						  "email": userId					  
 						},
 						{
 						//Account Fields
-						  "id":"Random Company" //Required
-				
+						  "id": "IBM", //Required
+						  "name":"International Business School"				
 						});
 						})();
 						 
-				 console.log(userId, firstName, lastName);
+				 console.log(userId);
 				
 				 sessionStorage.setItem("username", userId);          
-				 sessionStorage.setItem("password", password);
 				 window.location.href = "main.html";				
 				} else {
 						alert('Invalid User Name and Password');
@@ -62,30 +56,52 @@
 			}
 		
 		}
+} else if(window.location.href.indexOf('main') > -1){
+	let mainInterval = setInterval(checkElementOnMainPage, 1000);		
+	function checkElementOnMainPage(){
+	const loggingValue = document.getElementById('logging');
+	if(loggingValue){
+		clearInterval(mainInterval);
+		loggingValue.addEventListener("click",(e)=>{
+			e.preventDefault();
+		sessionStorage.clear()
+		window.aptrinsic('reset');
+		window.location.href="index.html";
+		});
+	}}
+} else {
+	console.log('returned');
+	return;
 }
-}
-)();
+});
 
 
 
-(function (){
-	if(window.location.href.indexOf('main') > -1){
-		let mainInterval = setInterval(checkElementOnMainPage, 1000);		
-		function checkElementOnMainPage(){
-		const loggingValue = document.getElementById('logging');
-		if(loggingValue){
-			clearInterval(mainInterval);
-			loggingValue.addEventListener("click",(e)=>{
-				e.preventDefault();
-            sessionStorage.clear()
-			window.aptrinsic('reset');
-			window.location.href="index.html";
-			});
-		}}
-	} else {
-		return;
-	}
+// (function (){
 
-})();
+// }
+// )();
+
+
+
+// (function (){
+// 	if(window.location.href.indexOf('main') > -1){
+// 		let mainInterval = setInterval(checkElementOnMainPage, 1000);		
+// 		function checkElementOnMainPage(){
+// 		const loggingValue = document.getElementById('logging');
+// 		if(loggingValue){
+// 			clearInterval(mainInterval);
+// 			loggingValue.addEventListener("click",(e)=>{
+// 				e.preventDefault();
+//             sessionStorage.clear()
+// 			window.aptrinsic('reset');
+// 			window.location.href="index.html";
+// 			});
+// 		}}
+// 	} else {
+// 		return;
+// 	}
+
+// })();
 
 
