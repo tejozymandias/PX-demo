@@ -24,7 +24,7 @@
 					const password = formInputs[1].value;
 					const firstName = formInputs[2].value;
 					const lastName = formInputs[3].value;
-					const accountId = userId.split('@')[1].substring(0,userId.indexOf('.'));
+					// const accountId = userId.split('@')[1].substring(0,userId.indexOf('.'));
 					const departmentArr = [
 						"Sales",
 						"Finance",
@@ -45,8 +45,8 @@
 						},
 						{
 						//Account Fields
-						  "id":accountId, //Required
-						  "name":accountId+".com",
+						  "id":userId, //Required
+						  "name":"Some Tech Company",
 						  "department":department
 						});
 						})();
