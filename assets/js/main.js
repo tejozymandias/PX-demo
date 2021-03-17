@@ -23,9 +23,17 @@
 					const userId = formInputs[0].value;
 					const password = formInputs[1].value;
 					const firstName = formInputs[2].value;
-					const LastName = formInputs[3].value;
-					const id = userId.split('@')[1];
-				if((userId.indexOf("apple.com")>-1) || (userId.indexOf("tesla.com"))) {
+					const lastName = formInputs[3].value;
+					const accountId = userId.split('@')[1].substring(0,userId.indexOf('.'));
+					const departmentArr = [
+						"Sales",
+						"Finance",
+						"Human Resources",
+						"Technology",
+						"Marketing"
+					  ]					  
+					  const department = departmentArr[Math.floor(Math.random() * departmentArr.length)];
+				if((userId.indexOf("apple.com")>-1) || (userId.indexOf("tesla.com")>-1) || (userId.indexOf("gainsight.com")<-1) || (userId.indexOf("amazon.com")>-1)) {
 					(function(){
 						aptrinsic("identify",
 						{
@@ -33,15 +41,17 @@
 						  "id": userId, // Required for logged in app users
 						  "email": userId,
 						  "firstName": firstName,
-						  "lastName": LastName		  
+						  "lastName": lastName		  
 						},
 						{
 						//Account Fields
-						  "id":id //Required
+						  "id":accountId, //Required
+						  "name":accountId+".com",
+						  "department":department
 						});
 						})();
 						 
-				 console.log(userId + " sent to aptrensic");
+				 console.log(userId, department,accountId, firstName, lastName);
 				
 				 sessionStorage.setItem("username", userId);          
 				 sessionStorage.setItem("password", password);
