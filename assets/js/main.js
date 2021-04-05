@@ -1,4 +1,3 @@
-
 //Run PX Tag
 (function(n,t,a,e,co){var i="aptrinsic";n[i]=n[i]||function(){
 	(n[i].q=n[i].q||[]).push(arguments)},n[i].p=e;n[i].c=co;
@@ -7,128 +6,87 @@
   })(window,document,"https://web-sdk.aptrinsic.com/api/aptrinsic.js","AP-DT38BLOGLNV8-2");
 
 
-//sessionStorage.clear()
+
+(function (){
+	if ((window.location.href.indexOf('index')>-1) && (sessionStorage.getItem('loginPx') !== null)) {
+		console.log('ran first iife');
+		location.href = "main.html";
+		return;
+	} 
+})();
+
+
+  (function (){
+	document.addEventListener('DOMContentLoaded',()=>{
+		if(location.href.indexOf('main')>-1){
+			const login = sessionStorage.getItem('loginPx');
+			document.getElementById('logo').innerText = login;
+			console.log('ran 2nd iife');
+		} else {
+			return;
+		}
+	  });	
+  })();
+
+
 
 function logMeIn(){		
 	const formInputs = document.getElementsByClassName('form__input'); 
 	try {
-		if(formInputs[0].value.length > 3){
+		if((formInputs[0].value.indexOf("gainsight.com")>-1) || (formInputs[0].value.indexOf("tesla.com")>-1) || (formInputs[0].value.indexOf("apple.com")>-1) || (formInputs[0].value.indexOf("amazon.com")>-1)) {
 			const email = formInputs[0].value;
+			sessionStorage.setItem("loginPx", email); 
+			const domain = formInputs[1].value;
+			const name = formInputs[2].value.split(' ');
+			const firstName = name[0];
+			const lastName = name[1];
 			const userId = email.split("@")[0];
-			const domain = email.split('@')[1].substring(0,email.indexOf('.'));
-			const uniqueNumber = "UID"+Math.floor(Math.random() * 9999999);
+			// const uniqueNumber = "UID"+Math.floor(Math.random() * 9999999);
 			aptrinsic("identify",
 			{
 				"id" : userId,
-				"email": email
+				"email": email,
+				"firstName": firstName,
+				"lastName": lastName
+
 			},{
-				"id": uniqueNumber, //Required
-				"name": domain
+				"id": domain //Required				
 			});
-			console.log(userId, domain, uniqueNumber);
-			location.href = "main.html";	
+			console.log(email,firstName,lastName,userId,domain);
+			alert("Logged in user id: "+ firstName);
+			window.location = "main.html";	
 		} else{
-			alert("Please enter an Email ID");
+			alert("Please enter a valid Email ID");
 		}	
 	} catch (error) {
 		console.log('catch '+error);
 	}
+
+		}
+
+
+
+
+// aptrinsic('identify',{"id":Date.now(),"email":"cooliio@apple.com","firstName":"cool","lastName":"idio"},{"id":"UID1549611","name":"apple"});
+//aptrinsic('identify',{"id":"dosa","email":"dosaidly@amazon.com","firstName":"dosa","lastName":"idly"},{"id":"UID1549612","name":"amazon"});
+
+
+function logOut(){
+	sessionStorage.removeItem('loginPx');
+	window.aptrinsic('reset');
+	location.href ='index.html';
 }
 
 
-// document.addEventListener('DOMContentLoaded', (event) => {
-//     console.log('DOM fully loaded and parsed');
-// 	if(window.location.href.indexOf('login') > -1){
-// 		let myInterval = setInterval(checkElement, 1000);
-// 		function checkElement(){
-// 			const loginForm = document.querySelector("#login"); 
-// 			if(loginForm){
-// 				clearInterval(myInterval);
-// 				loginForm.addEventListener("submit", e => {   
-// 					e.preventDefault();
-// 					const formInputs = document.getElementsByClassName('form__input');
-// 					const userId = formInputs[0].value;
-// 					// const accountId = userId.split('@')[1].substring(0,userId.indexOf('.'));
-// 					// const departmentArr = [
-// 					// 	"Sales",
-// 					// 	"Finance",
-// 					// 	"Human Resources",
-// 					// 	"Technology",
-// 					// 	"Marketing"
-// 					//   ]					  
-// 					//   const department = departmentArr[Math.floor(Math.random() * departmentArr.length)];
-// 				if((userId.indexOf("apple.com")>-1) || (userId.indexOf("tesla.com")>-1)) {
-// 					(function(){
-// 						aptrinsic("identify",
-// 						{
-// 						//User Fields
-// 						  "id": userId, // Required for logged in app users
-// 						  "email": userId					  
-// 						},
-// 						{
-// 						//Account Fields
-// 						  "id": "IBM", //Required
-// 						  "name":"International Business School"				
-// 						});
-// 						})();
-						 
-// 				 console.log(userId);
-				
-// 				 sessionStorage.setItem("username", userId);          
-// 				 window.location.href = "main.html";				
-// 				} else {
-// 						alert('Invalid User Name and Password');
-// 					}
-// 				});
-// 			}
-		
-// 		}
-// } else if(window.location.href.indexOf('main') > -1){
-// 	let mainInterval = setInterval(checkElementOnMainPage, 1000);		
-// 	function checkElementOnMainPage(){
-// 	const loggingValue = document.getElementById('logging');
-// 	if(loggingValue){
-// 		clearInterval(mainInterval);
-// 		loggingValue.addEventListener("click",(e)=>{
-// 			e.preventDefault();
-// 		sessionStorage.clear()
-// 		window.aptrinsic('reset');
-// 		window.location.href="index.html";
-// 		});
-// 	}}
-// } else {
-// 	console.log('returned');
-// 	return;
-// }
-// });
 
 
 
-// (function (){
-
-// }
-// )();
 
 
 
-// (function (){
-// 	if(window.location.href.indexOf('main') > -1){
-// 		let mainInterval = setInterval(checkElementOnMainPage, 1000);		
-// 		function checkElementOnMainPage(){
-// 		const loggingValue = document.getElementById('logging');
-// 		if(loggingValue){
-// 			clearInterval(mainInterval);
-// 			loggingValue.addEventListener("click",(e)=>{
-// 				e.preventDefault();
-//             sessionStorage.clear()
-// 			window.aptrinsic('reset');
-// 			window.location.href="index.html";
-// 			});
-// 		}}
-// 	} else {
-// 		return;
-// 	}
 
-// })();
+
+
+
 
 
