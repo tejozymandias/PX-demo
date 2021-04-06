@@ -109,5 +109,6 @@ function searchFunc(){
 	const searchTerm = document.getElementById('searchTerm').value;
 	aptrinsic('track', 'SearchTerm', {"terms":searchTerm}); 
 	alert('Search Term sent to PX');
+	location.href = "eventually.html";
 	return false;
 }
