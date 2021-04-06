@@ -108,5 +108,6 @@
 function searchFunc(){
 	const searchTerm = document.getElementById('searchTerm').value;
 	aptrinsic('track', 'SearchTerm', {"terms":searchTerm}); 
-	return;
+	alert('Search Term sent to PX');
+	return false;
 }
