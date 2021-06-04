@@ -53,7 +53,7 @@ function logMeIn(){
 				"lastName": lastName
 
 			},{
-				"id": "PX-ID-"+domain //Required				
+				"id": "PX-ID-"+domain, //Required				
 				"name": domain				
 			});
 			console.log(email,domain);
